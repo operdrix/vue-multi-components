@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import MyFirstComponent from '../components/MyFirstComponent.vue'
+import ParentComponent from '@/components/ParentComponent.vue'
+import TaskList from '@/components/organisms/TaskList.vue'
 </script>
 
 <template>
   <main>
-    <MyFirstComponent />
+    <TaskList />
   </main>
 </template>
