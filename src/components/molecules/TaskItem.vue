@@ -1,30 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, defineEmits } from 'vue'
 import Task from '@/models/Task'
 
-const props = defineProps({
-  task: {
-    type: Task,
-    required: true
-  },
-  index: {
-    type: Number,
-    required: true
-  }
-})
-const currentTask = defineModel<Task>()
-currentTask.value = props.task
-
-const isFinished = computed(() => {
-  return props.task.finished ? 'line-through' : ''
+const props = defineProps<{
+  task: Task,
+  index: Number
+}>()
+const currentTask = ref(props.task);
+//const emit = defineEmits(['update:task'])
+const classFinished = computed(() => {
+  return props.task.finished ? 'finished' : ''
 })
 </script>
 
 <template>
   <div>
     <label>
-      <h3 :class="isFinished">{{ currentTask?.label }}</h3>
-      <input type="checkbox" v-model="currentTask.finished" />
+      <h3 :class="classFinished">{{ currentTask.label }}</h3>
+      <input 
+        type="checkbox" 
+        v-model="currentTask.finished" 
+        @change="$emit('update:task', {currentTask, index})"
+      />
     </label>
   </div>
 </template>
@@ -41,7 +38,7 @@ label {
 
 h3 {
   margin: 0;
-  &.line-through {
+  &.finished {
     text-decoration: line-through;
   }
 }
