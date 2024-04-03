@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, defineEmits } from 'vue'
+import { computed, ref } from 'vue'
 import Task from '@/models/Task'
 
 const props = defineProps<{
@@ -7,7 +7,6 @@ const props = defineProps<{
   index: Number
 }>()
 const currentTask = ref(props.task);
-//const emit = defineEmits(['update:task'])
 const classFinished = computed(() => {
   return props.task.finished ? 'finished' : ''
 })
